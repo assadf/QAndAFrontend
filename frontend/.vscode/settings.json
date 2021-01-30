@@ -1,0 +1,11 @@
+{
+    "eslint.codeAction.showDocumentation": {
+      "enable": true
+    },
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+}
