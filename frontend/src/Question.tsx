@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 import { QuestionData } from './QuestionsData';
 import { gray2, gray3 } from './Styles';
-import { QuestionList } from './QuestionList';
 
 interface Props {
   data: QuestionData;
