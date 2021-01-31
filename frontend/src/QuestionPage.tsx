@@ -1,11 +1,12 @@
-import React, { FC, useState, Fragment, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Page } from './Page';
 import { RouteComponentProps } from 'react-router-dom';
 import { QuestionData, getQuestion } from './QuestionsData';
 
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import { gray2, gray3, gray6 } from './Styles';
+import { gray3, gray6 } from './Styles';
+import { AnswerList } from './AnswerList';
 
 interface RouteParams {
   questionId: string;
@@ -61,13 +62,14 @@ export const QuestionPage: FC<RouteComponentProps<RouteParams>> = ({
               css={css`
                 font-size: 12px;
                 font-style: italic;
-                color: ${gray2};
+                color: ${gray3};
               `}
             >
               {`Asked by ${
                 question.userName
               } on ${question.created.toLocaleDateString()} ${question.created.toLocaleTimeString()}`}
             </div>
+            <AnswerList data={question.answers} />
           </>
         )}
       </div>
