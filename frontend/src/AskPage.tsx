@@ -1,12 +1,26 @@
 import React from 'react';
 import { Page } from './Page';
-import { Form, required, minLength } from './Form';
+import { Form, required, minLength, Values } from './Form';
 import { Field } from './Field';
+import { postQuestion } from './QuestionsData';
 
 export const AskPage = () => {
+  const handleSubmit = async (values: Values) => {
+    const question = await postQuestion({
+      title: values.title,
+      content: values.content,
+      userName: 'Fred',
+      created: new Date(),
+    });
+    return { success: question ? true : false };
+  };
+
   return (
     <Page title="Ask a Question">
       <Form
+        onSubmit={handleSubmit}
+        failureMessage="There was a problem with your question"
+        successMessage="Your question was successfully submitted"
         submitCaption="Submit Your Question"
         validationRules={{
           title: [{ validator: required }, { validator: minLength, arg: 10 }],

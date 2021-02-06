@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Page } from './Page';
 import { RouteComponentProps } from 'react-router-dom';
-import { QuestionData, getQuestion } from './QuestionsData';
-import { Form, required, minLength } from './Form';
+import { QuestionData, getQuestion, postAnswer } from './QuestionsData';
+import { Form, required, minLength, Values } from './Form';
 import { Field } from './Field';
 
 /** @jsx jsx */
@@ -17,6 +17,16 @@ interface RouteParams {
 export const QuestionPage: FC<RouteComponentProps<RouteParams>> = ({
   match,
 }) => {
+  const handleSubmit = async (values: Values) => {
+    const result = await postAnswer({
+      questionId: question!.questionId,
+      content: values.content,
+      userName: 'Fred',
+      created: new Date(),
+    });
+    return { success: result ? true : false };
+  };
+
   const [question, setQuestion] = useState<QuestionData | null>(null);
 
   useEffect(() => {
@@ -78,6 +88,9 @@ export const QuestionPage: FC<RouteComponentProps<RouteParams>> = ({
               `}
             >
               <Form
+                onSubmit={handleSubmit}
+                failureMessage="There was a problem with your answer"
+                successMessage="Your answer was successfully submitted"
                 submitCaption="Submit Your Answer"
                 validationRules={{
                   content: [
